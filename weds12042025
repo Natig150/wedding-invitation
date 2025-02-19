@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свадьбу</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+        
+        body {
+            font-family: 'Georgia', serif;
+            text-align: center;
+            background: url('https://source.unsplash.com/1600x900/?wedding,flowers') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 36px;
+            font-family: 'Dancing Script', cursive;
+            color: #444;
+        }
+        h2 {
+            font-size: 22px;
+            margin-top: 20px;
+            color: #666;
+        }
+        p {
+            font-size: 18px;
+        }
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d9534f;
+            margin: 20px 0;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, textarea, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .map {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Приглашение на свадьбу</h1>
+        <p>Дорогие друзья и родные, мы рады пригласить вас на нашу свадьбу!</p>
+        <p><strong>Натиг & Мадина</strong></p>
+        <p>Дата: <strong>12 апреля 2025</strong></p>
+        <p>Время: <strong>17:00</strong></p>
+        <p>Место проведения: <strong>Банкетный зал «Наполеон», улица Гарибальди, дом 1А, Москва</strong></p>
+        
+        <div class="map">
+            <img src="https://static-maps.yandex.ru/1.x/?ll=37.6176,55.7558&size=600,300&z=15&l=map&pt=37.6176,55.7558,pm2rdl" 
+                 alt="Карта с местоположением" width="100%">
+        </div>
+        
+        <h2>До свадьбы осталось:</h2>
+        <div class="countdown" id="countdown"></div>
+        
+        <h2>Подтвердите свое присутствие</h2>
+        <form action="mailto:natig_1996@mail.ru" method="post" enctype="text/plain">
+            <label for="name">Ваше имя:</label>
+            <input type="text" id="name" name="name" placeholder="Ваше имя" required autocomplete="name">
+            
+            <label for="email">Ваш Email:</label>
+            <input type="email" id="email" name="email" placeholder="Ваш Email" required autocomplete="email">
+            
+            <label for="guests">Количество гостей:</label>
+            <input type="number" id="guests" name="guests" placeholder="Количество гостей" required min="1">
+            
+            <label for="message">Ваши пожелания:</label>
+            <textarea id="message" name="message" placeholder="Ваши пожелания" rows="4"></textarea>
+            
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+
+    <script>
+        function countdownTimer() {
+            const weddingDate = new Date("April 12, 2025 17:00:00").getTime();
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const timeLeft = weddingDate - now;
+
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown").innerHTML = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+
+                if (timeLeft < 0) {
+                    clearInterval(timer);
+                    document.getElementById("countdown").innerHTML = "Свадьба уже началась!";
+                }
+            }, 1000);
+        }
+        countdownTimer();
+    </script>
+</body>
+</html>
